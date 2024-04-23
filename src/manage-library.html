@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>DeClutterGPT</title>
+        <link rel="stylesheet" href="index.css" />
+        <script src="renderer.js"></script>
+        <script src="manage-library.js"></script>
+        <style>
+            .scrollabletextbox {
+                height: 100px;
+                width: 200px;
+                font-family: Verdana, Tahoma, Arial, Helvetica, sans-serif;
+                font-size: 82%;
+                overflow: scroll;
+            }
+        </style>
+    </head>
+    <body onload="main()">
+        <!-- Navigation Bar -->
+        <div id="topbar-container"></div>
+        <!-- Folder Path Selector -->
+        <div>
+            <form id="fileUpload">
+<!--               <label for-="fpath">Select Folder Path</label>-->
+                <button onclick="openFileDialog(event)">Select Files</button>
+                <button onclick="saveFiles(event)">Add</button>
+            </form>
+            <input type="button" value="Organize Library">
+        </div>
+        <!-- Selected Items -->
+        <div>
+            <br>Currently Selected Items<br>
+            <textarea class="scrollabletextbox" id="currently-selected"></textarea>
+        </div>
+        <!-- Recently Selected Items -->
+        <div>
+            <br>Recently Added Items<br>
+            <textarea class="scrollabletextbox" id="recently-added"></textarea>
+        </div>
+        <!-- All Index Items -->
+        <div>
+            <br>All Items<br>
+            <textarea class="scrollabletextbox"></textarea><br>
+            <input type="button" onclick="alert('Library Organized!')" value="Remove Items">
+        </div>
+    </body>
+    <!-- Footer -->
+    <br>
+    <div style="position: absolute; bottom: 5px" id="footer-container"></div>
+</html>

@@ -1,0 +1,42 @@
+{
+  "polisci": {
+    "hoverText": "Everything Changed when the Fire Nation Attacked",
+    "title": "Sphagetti Monster Science",
+    "imagePath": "poli-sci.png"
+  },
+  "datascience": {
+    "hoverText": "blablabla",
+    "title": "Data Scientist",
+    "imagePath": "ds.png"
+  },
+  "jobsearch": {
+    "hoverText": "blablabla",
+    "title": "Job Search",
+    "imagePath": "job-search.png"
+  },
+  "climatechange": {
+    "hoverText": "blablabla",
+    "title": "Climate Change",
+    "imagePath": "climate-change.png"
+  },
+  "econ": {
+    "hoverText": "blablabla",
+    "title": "Economics",
+    "imagePath": "economics.png"
+  },
+  "fintech": {
+    "hoverText": "blablabla",
+    "title": "Financial Technology",
+    "imagePath": "stonkfish.png"
+  },
+        "investmentstrategies": {
+    "hoverText": "blablabla",
+    "title": "Investment Strategies",
+    "imagePath": "investment-banker.png"
+  },
+  "jurisprudence": {
+    "hoverText": "blablabla",
+    "title": "Jurisprudence",
+    "imagePath": "law-firm.png"
+  }
+}

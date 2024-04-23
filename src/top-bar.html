@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<template id="topbar">
+    <link rel="stylesheet" href="index.css" />
+    <nav>
+        <!-- Logo -->
+        <a href="index.html"><img src="assets/logo.png" style='height: 41px;'/></a>
+        <!-- DeClutterGPT -->
+        <div class="declutter">
+            <a href="index.html">DeClutterGPT</a>
+        </div>
+        <!-- Search Bar -->
+        <div class="nav-search">
+            <div class="nav-search-category">
+                <p><All</p>
+                <img src="assets/dropdown_icon.png" height="12">
+            </div>
+            <input type="text" class="nav-search-input" placeholder="Search Your Library">
+            <img src="assets/search_icon.png" class="nav-search-icon">
+        </div>
+        <!-- Account Management -->
+        <div class="nav-text">
+            Hello, <span class="username">{user.name}</span>
+            <h1><a href="manage-library.html">Manage Your Library</a><img src="assets/dropdown_icon.png" width="8px"></h1>
+        </div>
+    </nav>
+    <!-- Bottom Navigation Bar -->
+    <div class="nav-bottom">
+        <div>
+            <img src="assets/menu_icon.png" width="25px">
+            <p>All</p>
+        </div>
+        <div id="categories-holder"></div>
+    </div>
+</template>
