@@ -51,7 +51,7 @@ app.on('activate', () => {
 // code. You can also put them in separate files and import them here.
 const startFlask = () => {
   PythonShell.run('src/NLP/api.py', {
-    pythonPath: 'src/NLP/venv/bin/python3' // Specify the path to your Python executable
+    pythonPath: 'venv/bin/python3' // Specify the path to your Python executable
   }).then(messages => {
     console.log(messages);
     console.log('finished');

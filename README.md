@@ -13,7 +13,7 @@ Run:
 ```python -m venv venv```
 
 Activate your virtual environment:
-```source ./venv```
+```source ./venv/bin/activate```
 
 Then run:
 ```pip install -r requirements.txt```
