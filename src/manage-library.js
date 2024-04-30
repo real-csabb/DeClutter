@@ -31,12 +31,16 @@ const openFileDialog = event => {
 // Saves added files to the database
 const saveFiles = event => {
     event.preventDefault();
+    const savingFilesNotif = document.getElementById('saving-files-notification');
+    savingFilesNotif.innerText = 'Please wait, saving files...';
+
     fetch('http://127.0.0.1:3000/save-files').then(response => {
         console.log(response);
         const currentlySelectedDialog = document.getElementById('currently-selected');
         const recentlyAddedDialog = document.getElementById('recently-added');
         recentlyAddedDialog.value = currentlySelectedDialog.value;
         currentlySelectedDialog.value = null;
+        savingFilesNotif.innerText = '';
         alert('Files saved to database!');
     })
         .catch(err => console.log(err));
