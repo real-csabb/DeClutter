@@ -69,6 +69,20 @@ def retrieve_categories():
     return json_data
 
 
+def retrieve_files_by_tag(description):
+    engine = load_database()
+
+    with Session(engine) as session:
+        statement = select(Tag.id).where(Tag.description == description)
+        tag_ids = session.scalars(statement).all()
+
+        statement = select(File).join(Tag.files).filter(Tag.id.in_(tag_ids)).distinct()
+        files = session.scalars(statement).all()
+
+        print([(file.id, file.file_path) for file in files])
+        return get_json_for_files(files)
+
+
 def retrieve_files_by_category(category_id):
     engine = load_database()
 
@@ -81,6 +95,14 @@ def retrieve_files_by_category(category_id):
         files = session.scalars(statement).all()
         print([(file.id, file.file_path) for file in files])
         return get_json_for_files(files)
+
+
+def retrieve_descriptions_by_fragment(fragment):
+    engine = load_database()
+
+    with Session(engine) as session:
+        statement = select(Tag.description).where(Tag.description.contains(fragment))
+        return session.scalars(statement).all()
 
 
 # Retrieves json data from a series of File objects

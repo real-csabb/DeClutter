@@ -18,6 +18,9 @@ const main = () => {
 
             // Handle username
             fillInUsername('Time Lord Victorious');
+
+            handleSearch();
+            handleDropdown();
         })
         .catch(error => {
             console.error('Error loading template: ', error);
@@ -105,8 +108,6 @@ const processCategories = () => {
 
 // Gets files and adds them to the UI
 const processFiles = () => {
-    const rowLength = 4; // Number of files in a row
-
     let options = {
         method: 'GET'
     }
@@ -134,49 +135,117 @@ const processFiles = () => {
     }
 
     fetch(`http://127.0.0.1:3000/${apiEndpoint}`, options).then(response => response.json())
-        .then(json => {
-            const fileHolder = document.querySelector('#files-holder');
+        .then(handleFileJson);
+};
 
-            // Fetch file template
-            fetch('file.html')
-                .then(response => response.text())
-                .then(templateHTML => {
-                    // Create temporary container
-                    let container = document.createElement('div');
-                    container.innerHTML = templateHTML;
+const handleFileJson = json => {
+    const rowLength = 4; // Number of files in a row
 
-                    // Find template element inside container
-                    const fileElement = container.querySelector('#file');
+    const fileHolder = document.querySelector('#files-holder');
+    // Clear all
+    fileHolder.innerHTML = '';
 
-                    // Import the template into the document
-                    return document.importNode(fileElement.content, true);
-                }).then(file => {
-                for (let i = 0; i < json.length; i++) {
-                    if (i % rowLength === 0) {
-                        const row = document.createElement('div');
-                        row.className = 'box-row';
-                        fileHolder.appendChild(row);
-                    }
+    // Fetch file template
+    fetch('file.html')
+        .then(response => response.text())
+        .then(templateHTML => {
+            // Create temporary container
+            let container = document.createElement('div');
+            container.innerHTML = templateHTML;
 
-                    fillInFile(file, json[i]);
-                    const newFile = file.cloneNode(true);
-                    newFile.id = i;
-                    fileHolder.lastElementChild.appendChild(newFile);
-                }
-            });
-        });
+            // Find template element inside container
+            const fileElement = container.querySelector('#file');
+
+            // Import the template into the document
+            return document.importNode(fileElement.content, true);
+        }).then(file => {
+        for (let i = 0; i < json.length; i++) {
+            if (i % rowLength === 0) {
+                const row = document.createElement('div');
+                row.className = 'box-row';
+                fileHolder.appendChild(row);
+            }
+
+            fillInFile(file, json[i]);
+            const newFile = file.cloneNode(true);
+            newFile.id = i;
+            fileHolder.lastElementChild.appendChild(newFile);
+        }
+    });
 };
 
 // Retrieves search input from the user
 const handleSearch = () => {
+    // Default text for dropdown is an empty string
+    handleDropdown();
+
     const searchInput = document.querySelector('.nav-search-input');
+    console.log("SEARCH VALUE:" + searchInput.value.charCodeAt(0));
 
     searchInput.addEventListener('input', () => {
-       const text = this.value;
-
+       const text = searchInput.value;
+       handleDropdown();
        console.log(text);
-
+       // Get
     });
+
+    searchInput.addEventListener('keydown', event => {
+        //event.preventDefault();
+
+        if (event.key === 'Enter') {
+            getFilesByKeyword(searchInput.value);
+        }
+    });
+
+    const searchIcon = document.querySelector('.nav-search-icon');
+
+    searchIcon.addEventListener('click', event => {
+        event.preventDefault();
+        getFilesByKeyword(searchInput.value);
+    });
+};
+
+const handleDropdown = () => {
+    const dropdown = document.querySelector('.dropdown-content');
+    const searchInput = document.querySelector('.nav-search-input');
+    dropdown.innerHTML = '';
+
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json' // Specify that the data being sent is JSON
+        },
+        body: JSON.stringify(searchInput.value)
+    };
+
+    console.log(options);
+
+    fetch('http://127.0.0.1:3000/dropdown', options).then(response => response.json())
+        .then(json => {
+            for (const keyword of json) {
+                const listElem = document.createElement("li");
+                listElem.innerText = keyword;
+                listElem.addEventListener('click', event => {
+                    event.preventDefault();
+                    getFilesByKeyword(keyword);
+                });
+                dropdown.appendChild(listElem);
+            }
+        });
+};
+
+const getFilesByKeyword = keyword => {
+    const options = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json' // Specify that the data being sent is JSON
+        },
+        body: JSON.stringify(keyword)
+    };
+
+    fetch('http://127.0.0.1:3000/search', options)
+        .then(response => response.json())
+        .then(handleFileJson);
 };
 
 // Replaces the inner text of all occurrences of the username class with a given username
@@ -203,5 +272,6 @@ const fillInFile = (file, json) => {
 };
 
 const fillInCategory = (category, json) => {
+    // Get top keyword for category
     category.innerText = json.name;
 };

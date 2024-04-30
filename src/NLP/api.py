@@ -5,7 +5,9 @@ import flask
 from flask import Flask, request, make_response
 from flask_cors import CORS
 from database import create_database
-from database_ops import save_to_db, retrieve_files, retrieve_categories, retrieve_files_by_category
+from database_ops import save_to_db
+from database_ops import retrieve_files, retrieve_categories, retrieve_files_by_category, retrieve_files_by_tag
+from database_ops import retrieve_descriptions_by_fragment
 
 app = Flask(
     __name__
@@ -64,6 +66,16 @@ def get_files_by_category():
 def get_search_results():
     search_term = request.json
 
+    if search_term == '':
+        return retrieve_files()
+
+    return retrieve_files_by_tag(search_term)
+
+
+@app.route('/dropdown', methods=['POST'])
+def get_dropdown_elements():
+    fragment = request.json
+    return retrieve_descriptions_by_fragment(fragment)
 
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=3000)
