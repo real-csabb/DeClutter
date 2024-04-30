@@ -24,7 +24,7 @@ Install Electron:
 Start DeClutter:
 ```npm run start```
 
-Pay attention to the JavaScript Console. If the connection being refused is not letting up, restart the app. This error is due to Flask refusing to run on your system.
+Pay attention to the JavaScript Console. Starting Flask can take up to thirty seconds. If the connection being refused is not letting up after this, restart the app. This error is due to Flask refusing to run on your system.
 
 Just in case, run the following command in application window:
 ```command+r```
