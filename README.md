@@ -17,7 +17,7 @@ Start DeClutter:
 
 Just in case, run the following command in application window:
 ```command+r```
----
+
 ## Features
 - Click on "Manage Your Library", select files, and click add. Wait.
 - Click the search bar, hover over the dropdown button, and start typing. Hit enter. This feature does not like uppercase.
