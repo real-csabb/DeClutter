@@ -2,11 +2,11 @@ const main = () => {
     fetch('top-bar.html')
         .then(response => response.text())
         .then(templateHTML => {
-           // Create temporary container
-           let container = document.createElement('div');
-           container.innerHTML = templateHTML;
+            // Create temporary container
+            let container = document.createElement('div');
+            container.innerHTML = templateHTML;
 
-           // Find template element inside container
+            // Find template element inside container
             const topBarElement = container.querySelector('#topbar');
 
             // Import the template into the document
@@ -183,10 +183,10 @@ const handleSearch = () => {
     console.log("SEARCH VALUE:" + searchInput.value.charCodeAt(0));
 
     searchInput.addEventListener('input', () => {
-       const text = searchInput.value;
-       handleDropdown();
-       console.log(text);
-       // Get
+        const text = searchInput.value;
+        handleDropdown();
+        console.log('TEXT: ' + text);
+        // Get
     });
 
     searchInput.addEventListener('keydown', event => {
@@ -209,6 +209,7 @@ const handleDropdown = () => {
     const dropdown = document.querySelector('.dropdown-content');
     const searchInput = document.querySelector('.nav-search-input');
     dropdown.innerHTML = '';
+    dropdown.style.display = searchInput.value === '' ? 'none' : 'block';
 
     const options = {
         method: 'POST',
@@ -269,6 +270,9 @@ const fillInFile = (file, json) => {
 
     const image = file.querySelector('.image');
     image.src = json.imagePath;
+
+    const link = file.querySelector('.link');
+    link.href = json.imagePath;
 };
 
 const fillInCategory = (category, json) => {

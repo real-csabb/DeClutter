@@ -35,3 +35,4 @@ Just in case, run the following command in application window:
 - In order to reset homepage, hit enter.
 - Click on categories to see different clusters.
 - Clicking "View More" may break the app. In this case, kill the app, rerun lsof, and restart the app.
+- You can click the on-hover text to open the file. In order to get back to the homepage, red circle or x out of this.
