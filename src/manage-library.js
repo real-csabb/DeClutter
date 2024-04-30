@@ -23,9 +23,7 @@ const openFileDialog = event => {
         const currentlySelectedDialog = document.getElementById('currently-selected');
         currentlySelectedDialog.value = result.filePaths.join('\n\n');
 
-        fetch('http://127.0.0.1:3000/add-files', options).then(response => console.log(response)).then(
-            json => alert('json uploaded' + json)
-        );
+        fetch('http://127.0.0.1:3000/add-files', options).then(response => console.log(response));
     })
         .catch(err => console.log(err));
 };
@@ -39,6 +37,7 @@ const saveFiles = event => {
         const recentlyAddedDialog = document.getElementById('recently-added');
         recentlyAddedDialog.value = currentlySelectedDialog.value;
         currentlySelectedDialog.value = null;
+        alert('Files saved to database!');
     })
         .catch(err => console.log(err));
 };

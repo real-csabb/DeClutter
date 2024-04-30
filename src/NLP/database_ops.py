@@ -9,38 +9,38 @@ from cluster import cluster_lda
 
 
 def save_to_db(files):
-    ocr_dict = perform_ocr(files)
-    engine = load_database()
+         ocr_dict = perform_ocr(files)
+         engine = load_database()
 
-    with Session(engine) as session:
-        document_term_matrix, feature_names, components = cluster_lda(ocr_dict)
+         with Session(engine) as session:
+             document_term_matrix, feature_names, components = cluster_lda(ocr_dict)
 
-        # Create files and tags
-        tags = []
+             # Create files and tags
+             tags = []
 
-        for i in range(len(files)):
-            file = File(file_path=files[i], text=ocr_dict[files[i]], date_added=datetime.today(), num_accesses=0)
-            session.add(file)
-            for j in document_term_matrix.getrow(i).indices:
-                tag = Tag(description=feature_names[j])
-                tags.append(tag)
-                file.tags.append(tag)
-        session.add_all(tags)
+             for i in range(len(files)):
+                 file = File(file_path=files[i], text=ocr_dict[files[i]], date_added=datetime.today(), num_accesses=0)
+                 session.add(file)
+                 for j in document_term_matrix.getrow(i).indices:
+                     tag = Tag(description=feature_names[j])
+                     tags.append(tag)
+                     file.tags.append(tag)
+             session.add_all(tags)
 
-        # Create categories and add tags to categories
-        categories = [Category(name=f'Category {i + 1}') for i in range(len(components))]
-        session.add_all(categories)
+             # Create categories and add tags to categories
+             categories = [Category(name=f'Category {i + 1}') for i in range(len(components))]
+             session.add_all(categories)
 
-        # Extract topics. Inspired by:
-        # https://stackoverflow.com/questions/44208501/getting-topic-word-distribution-from-lda-in-scikit-learn
-        words_per_topic = 10
+             # Extract topics. Inspired by:
+             # https://stackoverflow.com/questions/44208501/getting-topic-word-distribution-from-lda-in-scikit-learn
+             words_per_topic = 10
 
-        for topic_index, component in enumerate(components):
-            word_indexes = component.argsort()[::-1][:words_per_topic]
-            for i in word_indexes:
-                tags[i].categories.append(categories[topic_index])
+             for topic_index, component in enumerate(components):
+                 word_indexes = component.argsort()[::-1][:words_per_topic]
+                 for i in word_indexes:
+                     tags[i].categories.append(categories[topic_index])
 
-        session.commit()
+             session.commit()
 
 
 def retrieve_files():
