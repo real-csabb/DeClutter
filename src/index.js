@@ -50,9 +50,8 @@ app.on('activate', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 const startFlask = () => {
-  PythonShell.run('api.py', {
-    scriptPath: '/Users/csabb/unc_asheville/csci_480_capstone/Secret_DeClutterGPT/src/NLP',
-    pythonPath: '/Users/csabb/unc_asheville/csci_480_capstone/Secret_DeClutterGPT/src/NLP/venv/bin/python3' // Specify the path to your Python executable
+  PythonShell.run('src/NLP/api.py', {
+    pythonPath: 'src/NLP/venv/bin/python3' // Specify the path to your Python executable
   }).then(messages => {
     console.log(messages);
     console.log('finished');
