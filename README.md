@@ -6,16 +6,19 @@ Open Terminal and run:
 If anything, run:
 ```kill [your PID here]```
 
-Navigate to the DeClutter directory on your system. Run:
+Navigate to the DeClutter directory on your system. 
+```cd DeClutter/```
+
+Run:
 ```python -m venv venv```
 
 Activate your virtual environment:
-```source venv```
+```source ./venv```
 
 Then run:
 ```pip install -r requirements.txt```
 
-Just in case, run:
+Install Electron:
 ```npm install electron```
 
 Start DeClutter:

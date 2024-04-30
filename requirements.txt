@@ -6,3 +6,4 @@ pdf2image
 pytesseract
 SQLAlchemy~=2.0.29
 pymupdf
+src/NLP/venv
